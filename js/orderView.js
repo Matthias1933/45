@@ -1,4 +1,4 @@
-// orderView.js - ERWEITERT um Hecken-spezifische Action-Cards und Erschwerungen
+// orderView.js - erweitert um neues flexibles Service-Layout
 
 import { getOrderDetailMockData } from './api.js';
 import { showNotification } from './ui.js';
@@ -29,7 +29,8 @@ import {
   formatMeasure,
   isValidServiceType,
   createErrorCard,
-  createLayoutWarning
+  createLayoutWarning,
+  applyLazyLoading
 } from './utils.js';
 
 // === ZENTRALE SERVICE-KONFIGURATION ===
@@ -300,83 +301,214 @@ function renderServices(services) {
   const section = document.getElementById('servicesSection');
   if (!section) return;
   section.innerHTML = '';
-  
+
   services.forEach(serviceData => {
     if (!isValidServiceType(serviceData.type)) {
       const errorCard = createErrorCard(serviceData.type, 'Service');
       section.appendChild(errorCard);
       return;
     }
-    
+
     const serviceConfig = SERVICE_CONFIG[serviceData.type];
-    if (!serviceConfig) {
-      console.error('Unknown service type:', serviceData.type);
-      return;
-    }
-    
+    if (!serviceConfig) return;
+
     const card = document.createElement('div');
-    card.className = 'order-detail-card';
-    
-    const row = document.createElement('div');
-    row.className = 'service-row';
-    
-    row.appendChild(createServiceCard(serviceData, serviceConfig));
-    
-    const actionsContainer = document.createElement('div');
-    actionsContainer.className = 'service-actions-container';
-    
-    // 1. **Time-Price-Card** IMMER zuerst
-    const timePriceCard = createTimePriceCard(serviceData);
-    if (timePriceCard) actionsContainer.appendChild(timePriceCard);
-    
-    // 2. Separate Action-Card (außer Hecke)
-    const actionsCard = createActionsCard(serviceData, serviceConfig);
-    if (actionsCard) actionsContainer.appendChild(actionsCard);
-    
-    // 3. Erschwernisse (nur Hecke)
-    if (serviceData.type === SERVICE_TYPES.HECKE && serviceData.erschwerungen) {
-      const erschwernisCard = createErschwernissenCard(serviceData.erschwerungen);
-      if (erschwernisCard) actionsContainer.appendChild(erschwernisCard);
-    }
-    
-    // 4. Hecken-Rabatt Cards (wenn vorhanden)
-    if (serviceData.type === SERVICE_TYPES.HECKE && serviceData.hedgeDiscounts) {
-      const discounts = serviceData.hedgeDiscounts;
-      
-      // Rückseitenrabatt Card (wenn aktiv)
-      if (discounts.rueckseite) {
-        const discountCard = createHedgeDiscountCard(ACTION_TYPES.HEDGE_SCHNITTRABATT, serviceConfig);
-        if (discountCard) actionsContainer.appendChild(discountCard);
-      }
-      
-      // Entsorgungsrabatt Card (nur einer kann aktiv sein)
-      if (discounts.entsorgung === 'biotonne') {
-        const discountCard = createHedgeDiscountCard(ACTION_TYPES.HEDGE_ENTSORGUNGSRABATT_BIOTONNE, serviceConfig);
-        if (discountCard) actionsContainer.appendChild(discountCard);
-      } else if (discounts.entsorgung === 'liegenlassen') {
-        const discountCard = createHedgeDiscountCard(ACTION_TYPES.HEDGE_ENTSORGUNGSRABATT_LIEGENLASSEN, serviceConfig);
-        if (discountCard) actionsContainer.appendChild(discountCard);
-      }
-    }
-    
-    // 5. Individuelle Preis-Anpassungen
-    if (serviceData.adjustments) {
-      const adjustmentsCard = createPricingAdjustmentsCard(serviceData);
-      if (adjustmentsCard) actionsContainer.appendChild(adjustmentsCard);
-    }
-    
-    row.appendChild(actionsContainer);
-    
+    card.className = 'service-detail-card';
+
+    card.appendChild(createVisualColumn(serviceData, serviceConfig));
+
+    const details = document.createElement('div');
+    details.className = 'service-details-column';
+
+    const header = document.createElement('div');
+    header.className = 'service-header';
+    const h3 = document.createElement('h3');
+    h3.textContent = getLabel(SERVICE_LABELS[serviceData.type]);
+    header.appendChild(h3);
+    const mainAction = createMainActionElement(serviceData, serviceConfig);
+    if (mainAction) header.appendChild(mainAction);
+    details.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'info-grid';
+    grid.appendChild(createInfoBox('Soll-Zeit', serviceData.sollZeit));
+    grid.appendChild(createInfoBox('Preis', formatPrice(serviceData.preis)));
+    details.appendChild(grid);
+
+    const addInfo = createAdditionalInfo(serviceData, serviceConfig);
+    if (addInfo) details.appendChild(addInfo);
+
+    const footer = document.createElement('div');
+    footer.className = 'service-footer';
     const btn = document.createElement('button');
-    btn.className = 'btn-service-data';
-    btn.innerHTML = '<i class="fa-regular fa-share-from-square"></i><br><span>Daten</span><br><span>übernehmen</span>';
+    btn.className = 'btn-takeover-data';
+    btn.innerHTML = '<i class="fa-regular fa-share-from-square"></i><span>Daten übernehmen</span>';
     const serviceLabel = getLabel(SERVICE_LABELS[serviceData.type]);
     btn.addEventListener('click', () => showNotification(`Daten von ${serviceLabel} übernommen`, 'info'));
-    row.appendChild(btn);
-    
-    card.appendChild(row);
+    footer.appendChild(btn);
+    details.appendChild(footer);
+
+    card.appendChild(details);
     section.appendChild(card);
   });
+}
+
+function createVisualColumn(serviceData, serviceConfig) {
+  const column = document.createElement('div');
+  column.className = 'service-visual-column';
+
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'service-image-container';
+  const img = document.createElement('img');
+  img.src = serviceConfig.image;
+  img.alt = getLabel(SERVICE_LABELS[serviceData.type]);
+  imgWrap.appendChild(img);
+  column.appendChild(imgWrap);
+
+  if (serviceData.measures) {
+    const dims = document.createElement('div');
+    dims.className = 'service-dimensions';
+    Object.entries(serviceData.measures).forEach(([key, val]) => {
+      dims.appendChild(createDimensionTag(key, val));
+    });
+    column.appendChild(dims);
+  }
+
+  if (serviceData.bilder && serviceData.bilder.length > 0) {
+    const gallery = document.createElement('div');
+    gallery.className = 'service-gallery';
+    serviceData.bilder.forEach(b => {
+      const gImg = document.createElement('img');
+      gImg.src = b.src;
+      gImg.alt = b.alt || '';
+      gallery.appendChild(gImg);
+    });
+    applyLazyLoading(gallery, 1);
+    column.appendChild(gallery);
+  }
+
+  return column;
+}
+
+function createDimensionTag(key, value) {
+  const tag = document.createElement('div');
+  tag.className = 'dimension-tag';
+  const icon = document.createElement('i');
+  switch (key) {
+    case 'length':
+      icon.className = 'fa-solid fa-ruler-horizontal';
+      break;
+    case 'height':
+      icon.className = 'fa-solid fa-arrows-up-down';
+      break;
+    case 'depth':
+    case 'width':
+      icon.className = 'fa-solid fa-arrows-left-right';
+      break;
+    default:
+      icon.className = 'fa-solid fa-ruler';
+  }
+  tag.appendChild(icon);
+  const span = document.createElement('span');
+  span.textContent = getLabel(MEASURE_LABELS[key.toUpperCase()] || { de: key });
+  tag.appendChild(span);
+  const strong = document.createElement('strong');
+  strong.textContent = value;
+  tag.appendChild(strong);
+  return tag;
+}
+
+function createInfoBox(label, value) {
+  const box = document.createElement('div');
+  box.className = 'info-box';
+  const l = document.createElement('div');
+  l.className = 'info-label';
+  l.textContent = label;
+  const v = document.createElement('div');
+  v.className = 'info-value';
+  v.textContent = value || '–';
+  box.appendChild(l);
+  box.appendChild(v);
+  return box;
+}
+
+function createMainActionElement(serviceData, serviceConfig) {
+  const actionType = serviceData.hedgeAction || serviceData.action;
+  if (!actionType || !serviceConfig.actions) return null;
+  const cfg = serviceConfig.actions[actionType];
+  if (!cfg) return null;
+  const badge = document.createElement('div');
+  badge.className = 'service-main-action';
+  if (cfg.icon && (cfg.icon.endsWith('.png') || cfg.icon.endsWith('.svg'))) {
+    const img = document.createElement('img');
+    img.src = cfg.icon;
+    img.alt = actionType;
+    badge.appendChild(img);
+  } else if (cfg.icon) {
+    const i = document.createElement('i');
+    i.className = cfg.icon + ' action-icon';
+    badge.appendChild(i);
+  }
+  const span = document.createElement('span');
+  span.textContent = getLabel(ACTION_LABELS[actionType]);
+  badge.appendChild(span);
+  return badge;
+}
+
+function createAdditionalInfo(serviceData) {
+  const blocks = [];
+  if (serviceData.erschwerungen && serviceData.erschwerungen.length) {
+    const block = document.createElement('div');
+    block.className = 'info-block';
+    const h = document.createElement('h4');
+    h.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>Erschwernisse';
+    block.appendChild(h);
+    const list = document.createElement('div');
+    list.className = 'info-list';
+    serviceData.erschwerungen.forEach(e => {
+      const item = createErschwernisItem(e);
+      if (item) item.classList.add('info-list-item', 'erschwernis');
+      if (item) list.appendChild(item);
+    });
+    block.appendChild(list);
+    blocks.push(block);
+  }
+
+  if (serviceData.hedgeDiscounts && (serviceData.hedgeDiscounts.rueckseite || serviceData.hedgeDiscounts.entsorgung)) {
+    const block = document.createElement('div');
+    block.className = 'info-block';
+    const h = document.createElement('h4');
+    h.innerHTML = '<i class="fa-solid fa-tags"></i>Rabatte';
+    block.appendChild(h);
+    const list = document.createElement('div');
+    list.className = 'info-list';
+    if (serviceData.hedgeDiscounts.rueckseite) {
+      const item = document.createElement('div');
+      item.className = 'info-list-item rabatt';
+      item.innerHTML = '<i class="fa-solid fa-arrow-right-arrow-left"></i><span>Rückseite nicht geschnitten</span>';
+      list.appendChild(item);
+    }
+    if (serviceData.hedgeDiscounts.entsorgung === 'biotonne') {
+      const item = document.createElement('div');
+      item.className = 'info-list-item rabatt';
+      item.innerHTML = '<i class="fa-solid fa-leaf"></i><span>Entsorgung über Biotonne</span>';
+      list.appendChild(item);
+    }
+    if (serviceData.hedgeDiscounts.entsorgung === 'liegenlassen') {
+      const item = document.createElement('div');
+      item.className = 'info-list-item rabatt';
+      item.innerHTML = '<i class="fa-solid fa-leaf"></i><span>Material liegen lassen</span>';
+      list.appendChild(item);
+    }
+    block.appendChild(list);
+    blocks.push(block);
+  }
+
+  if (!blocks.length) return null;
+  const container = document.createElement('div');
+  container.className = 'additional-info';
+  blocks.forEach(b => container.appendChild(b));
+  return container;
 }
 
 function createServiceCard(serviceData, serviceConfig) {
@@ -593,8 +725,8 @@ function createErschwernissenCard(erschwerungen) {
   const content = document.createElement('div');
   content.className = 'erschwerungen-content';
   
-  const itemsPerColumn = 2;
-  const columns = Math.ceil(erschwerungen.length / itemsPerColumn);
+  const ITEMS_PER_COL = 3;
+  const columns = Math.ceil(erschwerungen.length / ITEMS_PER_COL);
   
   for (let col = 0; col < columns; col++) {
     if (col > 0) {
@@ -606,8 +738,8 @@ function createErschwernissenCard(erschwerungen) {
     const column = document.createElement('div');
     column.className = 'erschwerungen-column';
     
-    const startIndex = col * itemsPerColumn;
-    const endIndex = Math.min(startIndex + itemsPerColumn, erschwerungen.length);
+    const startIndex = col * ITEMS_PER_COL;
+    const endIndex = Math.min(startIndex + ITEMS_PER_COL, erschwerungen.length);
     
     for (let i = startIndex; i < endIndex; i++) {
       const item = createErschwernisItem(erschwerungen[i]);
