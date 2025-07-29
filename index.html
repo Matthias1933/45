@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kundenverwaltung</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/customer-list.css">
+    <link rel="stylesheet" href="css/customer-detail.css">
+    <link rel="stylesheet" href="css/order-detail.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="logo-area">
+            <img src="logo_dfe.png" alt="Firmenlogo" class="logo-image">
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active">Kunden</div>
+            <div class="menu-item">Mitarbeiter</div>
+            <div class="menu-item">Kalender</div>
+            <div class="menu-item">Rechner</div>
+            <div class="menu-item">Einstellungen</div>
+        </div>
+    </div>
+    
+    <button id="btn-toggle-sidebar" class="menu-toggle">☰</button>
+    
+    <div class="main-content">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Suchen...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button id="btn-open-customer-modal" class="btn-primary">+ Kunden anlegen</button>
+                    <div class="user-info">
+                        <div class="user-avatar">MW</div>
+                        <span>Matthias Wolf (admin)</span>
+                        <span>▼</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="content-header">
+                <h1 class="content-title">Kunden <span class="customer-count">(2.528)</span></h1>
+            </div>
+            
+            <div class="table-controls">
+                <div class="show-entries">
+                    <span>Zeige</span>
+                    <select class="entries-select">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </select>
+                    <span>Einträge</span>
+                </div>
+            </div>
+
+            <div class="customer-list-container">
+                <div class="list-header">
+                    <div class="header-col">Kunde</div>
+                    <div class="header-col">Status</div>
+                    <div class="header-col">Ort</div>
+                </div>
+                
+                <div class="customer-card">
+                    <div class="card-customer">
+                        <div class="customer-name">Johannes Schmidt</div>
+                        <div class="customer-number">KNR-15523</div>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-badge status-ok"><span class="status-dot"></span>OK</span>
+                    </div>
+                    <div class="card-location">
+                        <div class="location-city">12349 Berlin</div>
+                        <div class="location-street">Marienfelder Chaussee 161</div>
+                    </div>
+                </div>
+                
+                <div class="customer-card">
+                    <div class="card-customer">
+                        <div class="customer-name">Sabine Meier</div>
+                        <div class="customer-number">KNR-15526</div>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-badge status-schwierig"><span class="status-dot"></span>schwierig</span>
+                    </div>
+                    <div class="card-location">
+                        <div class="location-city">20095 Hamburg</div>
+                        <div class="location-street">Mönckebergstraße 5</div>
+                    </div>
+                </div>
+                
+                <div class="customer-card">
+                    <div class="card-customer">
+                        <div class="customer-name">Klaus Weber</div>
+                        <div class="customer-number">KNR-14831</div>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-badge status-gesperrt"><span class="status-dot"></span>Sperrkunde</span>
+                    </div>
+                    <div class="card-location">
+                        <div class="location-city">80331 München</div>
+                        <div class="location-street">Marienplatz 8</div>
+                    </div>
+                </div>
+                
+                <div class="customer-card">
+                    <div class="card-customer">
+                        <div class="customer-name">Maria Mustermann</div>
+                        <div class="customer-number">KNR-15524</div>
+                    </div>
+                    <div class="card-status">
+                        <span class="status-badge status-ok"><span class="status-dot"></span>OK</span>
+                    </div>
+                    <div class="card-location">
+                        <div class="location-city">50667 Köln</div>
+                        <div class="location-street">Hohe Str. 100</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="page-arrow">&lt;</a>
+                <a href="#" class="page-number active">1</a>
+                <a href="#" class="page-number">2</a>
+                <a href="#" class="page-number">3</a>
+                <a href="#" class="page-number">4</a>
+                <a href="#" class="page-number">5</a>
+                <a href="#" class="page-number">6</a>
+                <a href="#" class="page-number">7</a>
+                <a href="#" class="page-arrow">&gt;</a>
+            </div>
+        </div>
+        <div class="detail-header" id="sharedDetailHeader" style="display: none;">
+    <button id="btn-back-detail" class="btn-back">
+        </button>
+    <div class="detail-customer-info">
+        <span class="rating-stars header-rating" id="detailCustomerRating"></span>
+        <h1 class="detail-customer-name" id="detailCustomerName"></h1>
+        <span class="detail-customer-number" id="detailCustomerNumber"></span>
+        <span class="detail-customer-status" id="detailCustomerStatus"></span>
+    </div>
+    <button id="btn-edit-detail" class="btn-edit">Bearbeiten</button>
+</div>
+
+<div id="view-container"></div>
+        
+    
+    <div class="modal-overlay" id="customerModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Kunden anlegen</h2>
+                <button id="btn-close-customer-modal" class="modal-close">&times;</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button id="btn-tab-einsatzort" class="tab-button active">Einsatzort</button>
+                <button id="btn-tab-rechnungsadresse" class="tab-button">Rechnungsadresse</button>
+                <button id="btn-tab-notizen" class="tab-button">Notizen</button>
+                <button id="btn-tab-dateien" class="tab-button">Dateien</button>
+                <button id="btn-tab-status" class="tab-button">Status / Rating</button>
+            </div>
+            
+            <form id="customerForm" class="modal-content">
+                <div class="tab-content active" id="tab-einsatzort">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Anrede</label>
+                            <select name="einsatzort_anrede" required>
+                                <option value="">Bitte wählen</option>
+                                <option value="Herr">Herr</option>
+                                <option value="Frau">Frau</option>
+                                <option value="Firma">Firma</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text" name="einsatzort_vorname" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nachname</label>
+                            <input type="text" name="einsatzort_nachname" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Namens- / Adresszusatz</label>
+                            <input type="text" name="einsatzort_zusatz" placeholder="z.B. c/o Müller, Kolonie Waldbrand">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Straße</label>
+                            <input type="text" name="einsatzort_strasse" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Postleitzahl</label>
+                            <input type="text" name="einsatzort_plz" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ort</label>
+                            <input type="text" name="einsatzort_ort" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="tel" name="einsatzort_telefon">
+                        </div>
+                        <div class="form-group">
+                            <label>E-Mail</label>
+                            <input type="email" name="einsatzort_email">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="sameAsEinsatzort" onchange="toggleRechnungsadresse()">
+                                Einsatzort ist Rechnungsadresse
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-rechnungsadresse">
+                    <p class="info-text">(hier wird gezahlt)</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Anrede</label>
+                            <select name="rechnung_anrede">
+                                <option value="">Bitte wählen</option>
+                                <option value="Herr">Herr</option>
+                                <option value="Frau">Frau</option>
+                                <option value="Firma">Firma</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text" name="rechnung_vorname">
+                        </div>
+                        <div class="form-group">
+                            <label>Nachname</label>
+                            <input type="text" name="rechnung_nachname">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Namens- / Adresszusatz</label>
+                            <input type="text" name="rechnung_zusatz" placeholder="z.B. c/o Müller, Kolonie Waldbrand">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Straße</label>
+                            <input type="text" name="rechnung_strasse">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Postleitzahl</label>
+                            <input type="text" name="rechnung_plz">
+                        </div>
+                        <div class="form-group">
+                            <label>Ort</label>
+                            <input type="text" name="rechnung_ort">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="tel" name="rechnung_telefon">
+                        </div>
+                        <div class="form-group">
+                            <label>E-Mail</label>
+                            <input type="email" name="rechnung_email">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-notizen">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Notizen</label>
+                            <textarea name="notizen" rows="6" placeholder="Interne Notizen zum Kunden..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-dateien">
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>Dateien hochladen</label>
+                            <input type="file" name="dateien" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                            <p class="file-info">Erlaubte Formate: PDF, DOC, DOCX, JPG, PNG</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-status">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status">
+                                <option value="ok">OK</option>
+                                <option value="schwierig">schwierig</option>
+                                <option value="gesperrt">Sperrkunde</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <select name="rating">
+                                <option value="">Bitte wählen</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="modal-footer">
+                <button id="btn-cancel-modal" type="button" class="btn-cancel">abbrechen</button>
+                <button id="btn-save-customer" type="button" class="btn-save">speichern</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="confirmation-overlay" id="confirmationModal">
+        <div class="confirmation-container">
+            <h3>Daten verwerfen?</h3>
+            <p>Möchten Sie alle eingegebenen Daten verwerfen?</p>
+            <div class="confirmation-buttons">
+                <button id="btn-cancel-discard" class="btn-cancel">Nein, zurück</button>
+                <button id="btn-confirm-discard" class="btn-confirm">Ja, verwerfen</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span>© 2025 Matthias Wolf Software - Alle Rechte vorbehalten</span>
+        <img src="Wolf_logo.webp" alt="Entwickler Logo" class="developer-logo-image">
+    </div>
+
+<!-- BEREINIGTES TEMPLATE - NUR UI-STRUKTUR, KEINE MOCK-DATEN -->
+<template id="template-customer-detail">
+    <div class="customer-detail-view" id="customerDetailView">
+        <div class="detail-content">
+            <div class="customer-data-section">
+                <h2>Kundendaten</h2>
+                <div class="customer-data-cards">
+                    <div class="data-card">
+                        <h3>Einsatzort</h3>
+                        <div class="data-row">
+                            <span class="data-label">Name:</span>
+                            <span class="data-value" id="einsatzortName"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Adresse:</span>
+                            <span class="data-value" id="einsatzortAdresse"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Telefon:</span>
+                            <span class="data-value" id="einsatzortTelefon"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">E-Mail:</span>
+                            <span class="data-value" id="einsatzortEmail"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="data-card">
+                        <h3>Rechnungsadresse</h3>
+                        <div class="data-row">
+                            <span class="data-label">Name:</span>
+                            <span class="data-value" id="rechnungName"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Adresse:</span>
+                            <span class="data-value" id="rechnungAdresse"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Telefon:</span>
+                            <span class="data-value" id="rechnungTelefon"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">E-Mail:</span>
+                            <span class="data-value" id="rechnungEmail"></span>
+                        </div>
+                    </div>
+
+                    <div class="data-card full-width" id="notesCard">
+                        <h3>Notizen</h3>
+                        <p class="notes-text" id="kundenNotizen"></p>
+                    </div>
+
+                    <div class="data-card full-width" id="filesCard">
+                        <h3>Dateien</h3>
+                        <ul class="file-list" id="kundenDateien"></ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LEERE TIMELINE - WIRD DYNAMISCH GEFÜLLT -->
+            <div class="order-history-section">
+                <h2>Auftragshistorie</h2>
+                <div id="order-timeline">
+                    <!-- Hier wird die Timeline dynamisch generiert -->
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- ORDER DETAIL TEMPLATE BLEIBT UNVERÄNDERT -->
+<template id="template-order-detail">
+    <div class="order-detail-view" id="orderDetailView">
+        <div class="detail-content">
+            <h2 class="order-detail-title" id="orderDetailTitle">Termin vom 31.05.2022</h2>
+            <div class="order-detail-card">
+                <div class="order-info-bar" id="orderInfoBar">
+                    <!-- Dynamisch gefüllt -->
+                </div>
+            </div>
+            
+            <!-- Dienstleistungen Sektion -->
+            <div class="services-section" id="servicesSection">
+                <!-- Vertikutieren Beispiel -->
+                <div class="service-row">
+                    <!-- Karte 1: Service Card mit Bild und Maßen -->
+                    <div class="service-card vertikutieren">
+                        <h3>Vertikutieren</h3>
+                        <div class="service-visual">
+                            <div class="service-measure-group">
+                                <div class="service-measure">
+                                    <span class="label">Gesamt</span>
+                                    <span class="value">500 m²</span>
+                                </div>
+                                <div class="service-arrow">
+                                    <div class="service-arrow-top"></div>
+                                    <div class="service-arrow-bottom"></div>
+                                </div>
+                            </div>
+                            <div class="service-img-wrap">
+                                <img class="service-img" src="vertikutieren_ergebnis.webp" alt="Vertikutieren" />
+                            </div>
+                        </div>
+                        <div class="service-horizontal-arrow">
+                            <div class="service-horz-arrow">
+                                <div class="service-horz-arrow-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Karte 2: Actions -->
+                    <div class="actions-card">
+                        <div class="actions-list">
+                            <div class="action-item">
+                                <img class="action-icon" src="mähen.png" alt="Mähen" />
+                                <div class="action-content">
+                                    <div class="action-label">Mähen</div>
+                                    <div class="action-status done">✓</div>
+                                </div>
+                            </div>
+                            <div class="action-item">
+                                <img class="action-icon" src="nachsäen.png" alt="Nachsäen" />
+                                <div class="action-content">
+                                    <div class="action-label">Nachsäen</div>
+                                    <div class="action-status done">✓</div>
+                                </div>
+                            </div>
+                            <div class="action-item">
+                                <img class="action-icon" src="düngen.png" alt="Düngen" />
+                                <div class="action-content">
+                                    <div class="action-label">Düngen</div>
+                                    <div class="action-status not-done">✗</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Karte 3: Zeit & Preis -->
+                    <div class="time-price-card">
+                        <div class="time-price-info">
+                            <div class="time-price-item">
+                                <i class="time-price-icon fa-regular fa-clock"></i>
+                                <div class="time-price-content">
+                                    <span class="time-price-label">Soll-Zeit</span>
+                                    <span class="time-price-value">2:30 h</span>
+                                </div>
+                            </div>
+                            <div class="time-price-divider"></div>
+                            <div class="time-price-item">
+                                <i class="time-price-icon fas fa-euro-sign"></i>
+                                <div class="time-price-content">
+                                    <span class="time-price-label">Preis</span>
+                                    <span class="time-price-value">180,00 €</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Karte 4: Pricing Adjustments -->
+                    <div class="pricing-adjustments-card">
+                        <h4 class="pricing-card-header">Rabatt / Aufpreis individuell</h4>
+                        <div class="pricing-adjustments">
+                            <div class="pricing-details">
+                                <div class="price-item">
+                                    <span class="price-euro-icon black">€</span>
+                                    <div class="price-text-block">
+                                        <span class="price-label">Grundpreis</span>
+                                        <span class="price-value">200,00</span>
+                                    </div>
+                                </div>
+                                <div class="adjustments-row">
+                                    <div class="adjustment-item">
+                                        <span class="price-euro-icon green">€</span>
+                                        <div class="price-text-block">
+                                            <span class="price-label">Rabatt</span>
+                                            <span class="price-value">22,00</span>
+                                        </div>
+                                    </div>
+                                    <div class="adjustment-item">
+                                        <span class="price-euro-icon red">€</span>
+                                        <div class="price-text-block">
+                                            <span class="price-label">Aufpreis</span>
+                                            <span class="price-value">12,00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pricing-divider"></div>
+                            <div class="reasoning-section">
+                                <span class="reasoning-header">Begründung</span>
+                                <div class="reasoning-content">
+                                    <img class="reasoning-icon" src="begründung.png" alt="Begründung" />
+                                    <span class="reasoning-text">Erhöhter Preis aufgrund spezieller Rasenpflegeanlage erforderlich</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
