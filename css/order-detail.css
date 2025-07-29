@@ -1,0 +1,507 @@
+.order-detail-view {
+    display: none;
+    padding: 30px;
+}
+
+.order-detail-view.active {
+    display: block;
+}
+
+.order-detail-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    margin-left: 45px;
+}
+
+/* HAUPTKARTE (UMSCHLIESSENDE KARTE) */
+.order-detail-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 12px;
+}
+
+/* Letzter Service-Block ohne Margin */
+.services-section > .order-detail-card:last-child {
+    margin-bottom: 0;
+}
+
+/* INFO-LEISTE OBEN */
+.order-info-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 1px;
+}
+
+/* Alle Karten in der Info-Leiste */
+.order-info-bar .info-card {
+    background-color: #fffdfc;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 47px;
+}
+
+.order-info-bar .info-card i {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.order-info-bar .card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-info-bar .card-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-info-bar .card-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Personal-Icons Karte */
+.order-info-bar .personnel-card {
+    padding: 12px;
+    gap: 8px;
+    justify-content: center;
+}
+
+.order-info-bar .personnel-card i.fa-user {
+    font-size: 1.2rem;
+    color: var(--primary-green);
+}
+
+/* Mitarbeiter-Namenskarten */
+.order-info-bar .employee-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    min-height: 47px;
+    display: flex;
+    align-items: center;
+}
+
+/* Zeit-Karten mit Farbcodierung */
+.order-info-bar .time-card.ist-card.on-time {
+    background: var(--time-on-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    color: white;
+}
+
+.order-info-bar .time-card.ist-card.over-time {
+    background: var(--time-over-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    color: white;
+}
+
+.order-info-bar .time-card.ist-card i,
+.order-info-bar .time-card.ist-card .card-label,
+.order-info-bar .time-card.ist-card .card-value {
+    color: white;
+}
+
+/* DIENSTLEISTUNGS-SEKTION */
+.services-section {
+    margin-top: 0;
+}
+
+/* Service-Reihe */
+.service-row {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+.service-card {
+    flex: 0 0 220px;
+}
+
+.service-actions-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.btn-service-data {
+    flex: 0 0 auto;
+    align-self: center;
+    margin-left: auto;
+}
+
+/* 1. HAUPT-SERVICE-KARTE */
+.service-card {
+    background: #fffdfc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 12px;
+    width: 220px;
+    height: 200px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    line-height: 1.2;
+}
+
+/* Service-spezifische Farben */
+.service-card.vertikutieren h3 { color: #f4c01e; }
+.service-card.hecke h3, 
+.service-card.heckenschnitt h3 { color: #84cc16; }
+.service-card.rasen h3, 
+.service-card.rasenmähen h3 { color: #7ca040; }
+.service-card.obstbaum h3, 
+.service-card.obstbaumschnitt h3 { color: #6b4f21; }
+.service-card.baumschnitt h3, 
+.service-card.konifere h3, 
+.service-card.strauch h3, 
+.service-card.strauchschnitt h3 { color: #dc5b29; }
+.service-card.baum h3,
+.service-card.konifernschnitt h3 { color: #dc5b29; }
+.service-card.micha h3 { color: #34445d; }
+
+
+.service-visual {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    flex: 1;
+}
+
+.service-measure-group {
+    display: flex;
+    align-items: center;
+    height: 100px;
+    min-width: 50px;
+    margin-right: 6px;
+    justify-content: flex-end;
+}
+
+.service-measure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    min-width: 30px;
+}
+
+.service-measure .label { font-size: 11px; color: #555; margin-bottom: 1px; }
+.service-measure .value { font-size: 13px; color: #000; font-weight: bold; }
+
+.service-arrow { position: relative; width: 0; height: 80px; margin-right: 4px; }
+.service-arrow::before { content: ''; position: absolute; left: -1px; top: 0; height: 100%; border-left: 2px dashed #888; }
+.service-arrow-top, .service-arrow-bottom { position: absolute; left: -5px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; }
+.service-arrow-top { top: -5px; border-bottom: 7px solid #888; }
+.service-arrow-bottom { bottom: -5px; border-top: 7px solid #888; }
+
+.service-img-wrap { width: 120px; flex: none; display: flex; align-items: center; justify-content: center; height: 100px; }
+.service-img { height: 120px; width: auto; display: block; }
+.service-img-wrap.micha-centered { width: 100%; margin-left: 15px; }
+
+.service-horizontal-arrow { display: flex; align-items: center; margin-top: 2px; justify-content: flex-start; margin-left: 64px; }
+.service-horz-arrow { position: relative; width: 50px; height: 0; top: 0; margin-left: 2px; }
+.service-horz-arrow::before { content: ''; position: absolute; top: -1px; left: 0; width: 100%; border-bottom: 2px dashed #888; }
+.service-horz-arrow-right { position: absolute; top: -4px; right: -5px; width: 0; height: 0; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 7px solid #888; }
+
+.horz-measure { display: flex; flex-direction: column; align-items: center; margin-left: 6px; }
+.horz-measure .label { font-size: 11px; color: #555; margin-bottom: 1px; }
+.horz-measure .value { font-size: 13px; color: #000; font-weight: bold; }
+
+/* HECKENSCHNITT */
+.hedge-visual-area { position: relative; width: 240px; height: 200px; margin: 0; }
+.hedge-img-wrap { position: absolute; left: 75px; top: 39px; width: 117px; height: 66px; z-index: 2; display: flex; align-items: center; justify-content: center; }
+.hedge-img { height: 120px; width: auto; display: block; pointer-events: none; user-select: none; }
+.hedge-hoehe-label { position: absolute; left: 3px; top: 56px; color: #555; font-size: 11px; }
+.hedge-hoehe-value { position: absolute; left: 0px; top: 70px; font-size: 13px; color: #000; font-weight: bold; }
+.hedge-hoehe-arrow { position: absolute; left: 54px; top: 44px; width: 0; height: 61px; }
+.hedge-arrow-line { position: absolute; left: -1px; top: 0; height: 100%; border-left: 2px dashed #888; }
+.hedge-arrow-top { position: absolute; left: -5px; top: -5px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 7px solid #888; }
+.hedge-arrow-bottom { position: absolute; left: -5px; bottom: -5px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 7px solid #888; }
+.hedge-tiefe-label { position: absolute; left: 32px; top: 123px; color: #555; font-size: 11px; }
+.hedge-tiefe-value { position: absolute; left: 31px; top: 134px; font-size: 13px; color: #000; font-weight: bold; }
+.hedge-tiefe-arrow { position: absolute; left: 64px; top: 110px; width: 50px; height: 35px; }
+.hedge-laenge-label { position: absolute; left: 130px; top: 135px; color: #555; font-size: 11px; }
+.hedge-laenge-value { position: absolute; left: 169px; top: 134px; font-size: 13px; color: #000; font-weight: bold; }
+.hedge-laenge-arrow { position: absolute; left: 130px; top: 95px; width: 67px; height: 35px; }
+.hedge-tiefe-arrow svg, .hedge-laenge-arrow svg { width: 100%; height: 100%; }
+.hedge-tiefe-arrow svg marker polygon, .hedge-laenge-arrow svg marker polygon { fill: #888; }
+
+/* INFO-KARTEN LAYOUT (OPTIMIERT) */
+.service-info-card {
+    background: #fffdfc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 16px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Feste, einheitliche Breiten für Info-Karten */
+.actions-card,
+.hedge-actions-card,
+.strauch-properties-card,
+.hedge-discount-card {
+    flex-basis: 190px;
+    width: 190px;
+}
+
+.time-price-card {
+    flex-basis: 170px;
+    width: 170px;
+}
+
+/* Wachsende Karten */
+.erschwerungen-card { flex: 1 1 300px; max-width: 400px; min-width: 300px; }
+.pricing-adjustments-card { flex: 1 1 400px; max-width: 600px; min-width: 400px; }
+
+
+/* INHALTE DER INFO-KARTEN */
+.actions-list { display: flex; flex-direction: column; gap: 15px; justify-content: center; height: 100%; }
+.action-item { display: flex; align-items: center; gap: 12px; }
+.action-icon { width: 35px; height: 35px; object-fit: contain; flex-shrink: 0; }
+.obstbaum-actions .action-icon { width: 60px; height: 60px; }
+.obstbaum-actions .actions-list { gap: 20px; }
+.action-label { font-size: 12px; color: var(--text-dark); font-weight: 500; flex: 1; line-height: 1.3; }
+.action-status { font-size: 13px; font-weight: bold; flex-shrink: 0; }
+.action-status.done { color: #7ba03f; }
+.action-status.not-done { color: #f44a4a; }
+
+/* KORREKTUR: HECKEN-ACTIONS CSS */
+/* Die äußere Hülle der Karte */
+.hedge-actions-card {
+    padding: 0; /* Padding wird von .service-info-card geerbt oder hier zurückgesetzt */
+    text-align: center;
+}
+/* Der innere Container, der den Inhalt hält und zentriert */
+.hedge-formschnitt-card,
+.hedge-schredderschnitt-card,
+.hedge-verjuengung-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hedge-formschnitt-icon,
+.hedge-schredderschnitt-icon,
+.hedge-verjuengung-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+.hedge-formschnitt-title,
+.hedge-schredderschnitt-title,
+.hedge-verjuengung-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-dark);
+}
+
+/* GEÄNDERT: HECKEN-RABATT CARDS CSS - Kompakte Struktur */
+.hedge-discount-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+/* Header bleibt linksbündig */
+.hedge-discount-header {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+/* Icon – Höhe/Breite anpassbar; Abstand verringert */
+.hedge-discount-icon {
+    width: 96px; /* 1,6-fache Vergrößerung: 60 * 1,6 */
+    height: 96px;
+    object-fit: contain;
+    align-self: center;
+    margin-bottom: 0px; /* Verringerter Abstand Icon → Prozentzahl */
+}
+
+/* Prozentzahl & Beschreibung */
+.hedge-discount-percentage {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px; /* Abstand Prozentzahl → Text */
+}
+
+.hedge-discount-description {
+    font-size: 13px;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* ERSCHWERUNGEN CSS */
+.erschwerungen-header { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #f4a261; text-align: left; }
+.erschwerungen-content { display: flex; height: calc(100% - 40px); gap: 15px; overflow-y: auto; }
+.erschwerungen-column { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.erschwerung-item { display: flex; align-items: center; gap: 6px; padding: 2px 0; margin-bottom: 2px; }
+.erschwerung-icon { width: 40px; height: 40px; flex-shrink: 0; }
+.erschwerung-icon img { width: 40px; height: 40px; object-fit: contain; }
+.erschwerung-content { flex: 1; font-size: 12px; color: var(--text-dark); line-height: 1.2; }
+.erschwerung-status { font-size: 12px; font-weight: bold; color: #7ba03f; flex-shrink: 0; }
+
+/* STRAUCH-EIGENSCHAFTEN KARTEN */
+.formschnitt-card,
+.rueckschnitt-card {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.formschnitt-icon,
+.rueckschnitt-icon { color: var(--primary-green); font-size: 32px; margin-bottom: 12px; }
+.formschnitt-title,
+.rueckschnitt-title { font-weight: 600; font-size: 13px; color: var(--text-dark); margin-bottom: 8px; }
+.rueckschnitt-height { font-weight: 700; font-size: 13px; color: var(--text-dark); }
+
+/* ENTFERNUNG KARTE */
+.entfernung-card { display: flex; overflow: hidden; border-radius: 8px; height: 100%; }
+.entfernung-left { background-color: #f44a4a; flex: 0 0 33.333%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; color: white; }
+.entfernung-icon { font-size: 30px; margin-bottom: 8px; }
+.entfernung-title { font-weight: 600; font-size: 14px; text-align: center; line-height: 1.2; }
+.entfernung-right { flex: 1; display: flex; flex-direction: column; }
+.entfernung-option { flex: 1; padding: 12px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--border-color); text-align: center; line-height: 1.2; }
+.entfernung-option:last-child { border-bottom: none; }
+.entfernung-option.active { color: var(--text-dark); background-color: rgba(123, 160, 63, 0.1); font-weight: 600; }
+.entfernung-option.inactive { color: #ccc; background-color: #f9f9f9; }
+
+/* TIME & PRICE CARD (ZENTRIERUNG KORRIGIERT) */
+.time-price-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.time-price-item { display: flex; align-items: center; gap: 12px; width: 120px; }
+.time-price-icon { font-size: 16px; color: var(--primary-green); width: 20px; text-align: center; }
+.time-price-content { display: flex; flex-direction: column; flex: 1; }
+.time-price-label { font-size: 10px; color: var(--text-light); font-weight: 500; text-transform: uppercase; }
+.time-price-value { font-size: 13px; color: var(--text-dark); font-weight: 600; }
+.time-price-divider { height: 1px; background: var(--border-color); width: 80%; }
+
+/* ── Kopfbanner für Schnittart ───────────────────────── */
+.schnittart-banner{
+    background:#f2f3f4;
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    margin:-16px -16px 12px;      /* überlagert das Karten‑Padding */
+    padding:16px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+.schnittart-icon{font-size:18px;width:20px;text-align:center}
+.schnittart-text{display:flex;flex-direction:column}
+.schnittart-label{font-size:10px;text-transform:uppercase;color:var(--text-light);font-weight:500}
+.schnittart-value{font-size:13px;font-weight:600;color:var(--text-dark)}
+
+/* PRICING ADJUSTMENTS CARD */
+.pricing-card-header { font-size: 16px; font-weight: 700; margin-bottom: 20px; color: #f4c01e; }
+.pricing-adjustments { display: flex; gap: 16px; align-items: flex-start; }
+.pricing-details { flex: 1; min-width: 200px; }
+.price-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.price-euro-icon { font-size: 24px; font-weight: regular; flex-shrink: 0; }
+.price-euro-icon.black { color: #000; }
+.price-euro-icon.green { color: #7ba03f; }
+.price-euro-icon.red { color: #f44a4a; }
+.price-text-block { display: flex; flex-direction: column; }
+.price-label { font-size: 12px; color: var(--text-light); font-weight: 500; line-height: 1; margin-bottom: 5px; }
+.price-value { font-size: 14px; color: var(--text-dark); font-weight: 600; line-height: 1; }
+.adjustments-row { display: flex; gap: 30px; margin-bottom: 16px; }
+.adjustment-item { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.pricing-divider { width: 1px; height: 80px; background: var(--border-color); margin: 0 16px; flex-shrink: 0; }
+.reasoning-section { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 150px; }
+.reasoning-header { font-size: 12px; color: var(--text-light); font-weight: 500; margin-left: 52px; }
+.reasoning-content { display: flex; align-items: flex-start; gap: 12px; }
+.reasoning-icon { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+.reasoning-text { font-size: 14px; color: var(--text-dark); line-height: 1.4; }
+
+/* Dynamischer Trennbalken basierend auf JS-Klasse */
+.pricing-adjustments.adjustments-count-1 .pricing-details {
+    flex-grow: 0;
+}
+
+/* BUTTON STYLING */
+.btn-service-data { background: linear-gradient(145deg, #ffffff, #f8f9fa); color: var(--primary-green); border: 2px solid rgba(123, 160, 63, 0.2); padding: 12px 20px 20px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; white-space: nowrap; width: 100px; height: 90px; flex-shrink: 0; gap: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+.btn-service-data i { font-size: 16px; margin-bottom: 2px; }
+.btn-service-data span { line-height: 0.9; font-size: 12px; }
+.btn-service-data:hover { background: var(--primary-green); color: white; border-color: var(--primary-green); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(123, 160, 63, 0.2); }
+.btn-service-data:active { transform: translateY(0); }
+
+/* SVG STYLES */
+.service-card .tiefe-arrow svg,
+.service-card .laenge-arrow svg { stroke: #888; }
+.service-card .tiefe-arrow line,
+.service-card .laenge-arrow line { stroke: #888 !important; stroke-width: 2 !important; stroke-dasharray: 4,4 !important; }
+.service-card .tiefe-arrow svg marker polygon,
+.service-card .laenge-arrow svg marker polygon { fill: #888 !important; }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1200px) {
+    .service-actions-container { justify-content: center; }
+}
+@media (max-width: 900px) {
+    .order-info-bar { justify-content: center; gap: 12px; }
+    .order-detail-card { padding: 14px; }
+    .order-detail-title { margin-left: 20px; font-size: 20px; }
+}
+@media (max-width: 768px) {
+    .content, .customer-detail-view, .order-detail-view { padding: 20px; }
+    .service-row { flex-direction: column; gap: 15px; align-items: center; }
+    .service-card { flex: none; width: 100%; max-width: 280px; height: auto; }
+    .service-actions-container { justify-content: center; gap: 12px; width: 100%; }
+    .btn-service-data { margin-left: 0; }
+    .service-info-card { width: 100%; min-width: auto; max-width: none; flex: none; padding: 12px; height: auto; }
+    .pricing-adjustments { flex-direction: column; gap: 8px; }
+    .pricing-divider { width: 100%; height: 1px; margin: 8px 0; }
+}

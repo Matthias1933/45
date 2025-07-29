@@ -1,0 +1,123 @@
+/* Content Styles */
+.content {
+    padding: 30px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.content-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.customer-count {
+    color: var(--text-light);
+    font-weight: 400;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.table-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.show-entries {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.entries-select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Customer List Styles */
+.customer-list-container {
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.list-header {
+    display: flex;
+    background-color: var(--bg-light);
+    padding: 0.75rem 1.5rem;
+}
+
+.header-col {
+    flex: 2.5;
+    padding: 0 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.header-col:nth-child(2) {
+    flex: 1.5;
+}
+
+.customer-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+}
+
+.customer-card:last-child {
+    border-bottom: none;
+}
+
+.customer-card:hover {
+    background-color: var(--bg-light);
+}
+
+.card-customer,
+.card-status,
+.card-location {
+    flex: 2.5;
+    padding: 0 1rem;
+}
+
+.card-status {
+    flex: 1.5;
+}
+
+.customer-name {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.customer-number {
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
+.location-city {
+    font-size: 0.875rem;
+}
+
+.location-street {
+    color: var(--text-light);
+    font-size: 0.75rem;
+}
+
