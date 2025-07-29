@@ -1,3 +1,5 @@
+/* New order detail layout based on try-new-design-orderview.html
+   Structural styles only - colours rely on existing design tokens */
 .order-detail-view {
     display: none;
     padding: 30px;
@@ -504,4 +506,193 @@
     .service-info-card { width: 100%; min-width: auto; max-width: none; flex: none; padding: 12px; height: auto; }
     .pricing-adjustments { flex-direction: column; gap: 8px; }
     .pricing-divider { width: 100%; height: 1px; margin: 8px 0; }
+}
+
+/* ===== NEW FLEX LAYOUT ===== */
+.service-detail-card {
+    display: flex;
+    gap: 28px;
+    background: var(--bg-special);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 24px;
+}
+
+.service-visual-column {
+    width: 220px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.service-image-container {
+    width: 100%;
+    height: 220px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-light);
+}
+
+.service-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-gallery {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.service-gallery img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+}
+
+.service-dimensions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dimension-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: calc(var(--radius-lg) / 1.5);
+    font-size: 13px;
+}
+
+.dimension-tag i {
+    width: 16px;
+    text-align: center;
+    color: var(--primary-green);
+}
+
+.dimension-tag strong {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.service-details-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.service-header h3 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    color: var(--text-dark);
+}
+
+.service-main-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-light);
+    font-size: 14px;
+}
+
+.info-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.info-grid .info-box {
+    flex: 1 1 calc(50% - 8px);
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 8px 12px;
+}
+
+.info-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.additional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-block h4 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.info-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    padding: 6px 10px;
+    border-radius: calc(var(--radius-lg) / 1.5);
+    font-size: 13px;
+}
+
+.info-list-item i {
+    width: 16px;
+    text-align: center;
+}
+
+.service-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+}
+
+.btn-takeover-data {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-takeover-data i {
+    width: 16px;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .service-visual-column { width: 180px; }
 }
